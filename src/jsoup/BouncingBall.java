@@ -1,14 +1,22 @@
 package jsoup;
 
+import java.awt.Button;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,9 +28,34 @@ public class BouncingBall extends JPanel {
 	Crawling stock = new Crawling();
 	Crawling temp = new Crawling();
 	Crawling search = new Crawling();
-	public BouncingBall() throws IOException {
+	JTextField tf = new JTextField(10);
+	
+	//Button bt = new Button("검색");
+	public BouncingBall() throws IOException, URISyntaxException {
 		this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT)); // 사이즈 지정
+		String str = new String(tf.getText());
+		tf.addActionListener(new ActionListener(){
 
+            public void actionPerformed(ActionEvent e){
+
+            	try {
+					Desktop.getDesktop().browse(new URI("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query="+str));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+            }});
+		this.add(tf);
+		
+		//this.add(bt);
+		
+		//Desktop.getDesktop().browse(new URI("http://mdago.tistory.com/"));
+		
+		
 		class MyThread extends Thread {
 			public void run() { // 수행하여야 하는 작업을 적어줌
 				while (true) {
@@ -45,12 +78,12 @@ public class BouncingBall extends JPanel {
 		super.paintComponent(g);
 		if (stock.getStr() != null) {
 			g.setFont(new Font("고딕체", Font.BOLD, 20));
-			g.drawString(stock.getStr(), 30, 30);
+			g.drawString(stock.getStr(), 30, 60);
 		}
 
 		if (temp.getStr() != null) {
 			g.setFont(new Font("고딕체", Font.BOLD, 20));
-			g.drawString("부산 기온 : " + temp.getStr() + "℃", 30, 60);
+			g.drawString("부산 기온 : " + temp.getStr() + "℃", 30, 90);
 		}
 		
 		

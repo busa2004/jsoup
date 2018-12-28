@@ -1,11 +1,12 @@
 package jsoup;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 
 public class App {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, URISyntaxException {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(new BouncingBall());
